@@ -1,0 +1,31 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Booking {
+  id            String   @id @default(uuid())
+  hallName      String
+  customerName  String
+  email         String
+  phone         String
+  bookingDate   DateTime
+  startTime     String
+  endTime       String
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([hallName])
+  @@index([bookingDate])
+}
+
+// Add this to prevent overlapping bookings
+// This is a Prisma validation that needs to be implemented in the application logic
+// as Prisma doesn't support complex constraints like this natively

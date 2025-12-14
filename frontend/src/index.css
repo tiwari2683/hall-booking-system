@@ -1,0 +1,489 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom CSS variables for light/dark mode */
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 20 14.3% 4.1%;
+    --muted: 60 4.8% 95.9%;
+    --muted-foreground: 25 5.3% 44.7%;
+    --card: 0 0% 100%;
+    --card-foreground: 20 14.3% 4.1%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 20 14.3% 4.1%;
+    --border: 20 5.9% 90%;
+    --input: 20 5.9% 90%;
+    --primary: 24 9.8% 10%;
+    --primary-foreground: 60 9.1% 97.8%;
+    --secondary: 60 4.8% 95.9%;
+    --secondary-foreground: 24 9.8% 10%;
+    --accent: 60 4.8% 95.9%;
+    --accent-foreground: 24 9.8% 10%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 60 9.1% 97.8%;
+    --ring: 20 14.3% 4.1%;
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    --background: 20 14.3% 4.1%;
+    --foreground: 60 9.1% 97.8%;
+    --muted: 12 6.5% 15.1%;
+    --muted-foreground: 24 5.4% 63.9%;
+    --card: 20 14.3% 4.1%;
+    --card-foreground: 60 9.1% 97.8%;
+    --popover: 20 14.3% 4.1%;
+    --popover-foreground: 60 9.1% 97.8%;
+    --border: 12 6.5% 15.1%;
+    --input: 12 6.5% 15.1%;
+    --primary: 60 9.1% 97.8%;
+    --primary-foreground: 24 9.8% 10%;
+    --secondary: 12 6.5% 15.1%;
+    --secondary-foreground: 60 9.1% 97.8%;
+    --accent: 12 6.5% 15.1%;
+    --accent-foreground: 60 9.1% 97.8%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 60 9.1% 97.8%;
+    --ring: 24 5.7% 82.9%;
+  }
+
+  * {
+    @apply box-border;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+
+  ::-webkit-scrollbar-track {
+    @apply bg-neutral-100 dark:bg-neutral-900 rounded-full;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    @apply bg-neutral-300 dark:bg-neutral-700 rounded-full border-2 border-solid border-transparent bg-clip-padding;
+    transition: background-color 0.2s ease;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    @apply bg-neutral-400 dark:bg-neutral-600;
+  }
+
+  /* Focus styles for accessibility */
+  :focus-visible {
+    @apply outline-none ring-2 ring-primary-500 ring-offset-2 ring-offset-white dark:ring-offset-neutral-900 rounded-md transition-shadow duration-200;
+  }
+
+  /* Selection colors */
+  ::selection {
+    @apply bg-primary-500/20 text-foreground dark:bg-primary-400/30;
+  }
+
+  /* Link styles */
+  a {
+    @apply text-primary-600 dark:text-primary-400 hover:text-primary-800 dark:hover:text-primary-300 transition-colors duration-200 font-medium;
+  }
+
+  /* Smooth transitions for theme changes */
+  * {
+    @apply transition-colors duration-200;
+  }
+}
+
+@layer components {
+  /* Booking card component */
+  .booking-card {
+    @apply bg-white dark:bg-neutral-900/50 rounded-xl shadow-sm border border-neutral-100 dark:border-neutral-800/50 transition-all duration-300 hover:shadow-md hover:border-primary-300/50 dark:hover:border-primary-600/50 backdrop-blur-sm;
+  }
+
+  .booking-card-header {
+    @apply px-6 py-4 border-b border-neutral-100 dark:border-neutral-800/50 bg-white/50 dark:bg-neutral-900/30 rounded-t-xl backdrop-blur-sm;
+  }
+
+  .booking-card-body {
+    @apply px-6 py-4 bg-white/30 dark:bg-neutral-900/20;
+  }
+
+  .booking-card-footer {
+    @apply px-6 py-4 border-t border-neutral-100 dark:border-neutral-800/50 bg-white/50 dark:bg-neutral-900/30 rounded-b-xl backdrop-blur-sm;
+  }
+
+  /* Status badges */
+  .status-badge {
+    @apply inline-flex items-center px-3 py-1.5 rounded-full text-xs font-medium transition-all duration-200 shadow-sm;
+  }
+
+  .status-confirm {
+    @apply bg-success-50 text-success-800 dark:bg-success-900/30 dark:text-success-200 ring-1 ring-success-500/30 hover:bg-success-100 dark:hover:bg-success-900/40;
+  }
+
+  .status-pending {
+    @apply bg-warning-50 text-warning-800 dark:bg-warning-900/30 dark:text-warning-200 ring-1 ring-warning-500/30 hover:bg-warning-100 dark:hover:bg-warning-900/40;
+  }
+
+  .status-cancelled {
+    @apply bg-danger-50 text-danger-800 dark:bg-danger-900/30 dark:text-danger-200 ring-1 ring-danger-500/30 hover:bg-danger-100 dark:hover:bg-danger-900/40;
+  }
+
+  /* Button styles */
+  .btn {
+    @apply inline-flex items-center justify-center px-4 py-2 rounded-lg font-medium transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+
+  .btn-primary {
+    @apply btn bg-primary-600 text-white hover:bg-primary-700 focus:ring-primary-500 shadow-sm hover:shadow-md;
+  }
+
+  .btn-secondary {
+    @apply btn bg-neutral-100 text-neutral-900 hover:bg-neutral-200 focus:ring-neutral-500 dark:bg-neutral-700 dark:text-neutral-100 dark:hover:bg-neutral-600;
+  }
+
+  .btn-success {
+    @apply btn bg-success-600 text-white hover:bg-success-700 focus:ring-success-500 shadow-sm hover:shadow-md;
+  }
+
+  .btn-danger {
+    @apply btn bg-danger-600 text-white hover:bg-danger-700 focus:ring-danger-500 shadow-sm hover:shadow-md;
+  }
+
+  .btn-outline {
+    @apply btn border border-neutral-300 bg-white text-neutral-700 hover:bg-neutral-50 focus:ring-neutral-500 dark:border-neutral-600 dark:bg-neutral-800 dark:text-neutral-300 dark:hover:bg-neutral-700;
+  }
+
+  /* Form styles */
+  .form-input {
+    @apply w-full px-3 py-2 border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-colors duration-200 dark:border-neutral-600 dark:bg-neutral-700 dark:text-white dark:placeholder-neutral-400;
+  }
+
+  .form-input-error {
+    @apply border-danger-500 ring-2 ring-danger-500/20 bg-danger-50 dark:bg-danger-900/20;
+  }
+
+  .form-label {
+    @apply block text-sm font-medium text-neutral-700 dark:text-neutral-300 mb-1;
+  }
+
+  .form-error {
+    @apply mt-1 text-sm text-danger-600 dark:text-danger-400 flex items-center gap-1;
+  }
+
+  .form-success {
+    @apply mt-1 text-sm text-success-600 dark:text-success-400 flex items-center gap-1;
+  }
+
+  /* Table styles */
+  .booking-table {
+    @apply w-full text-sm text-left;
+  }
+
+  .booking-table thead {
+    @apply bg-neutral-50 dark:bg-neutral-700 border-b border-neutral-200 dark:border-neutral-600;
+  }
+
+  .booking-table th {
+    @apply px-6 py-3 font-medium text-neutral-900 dark:text-neutral-100 uppercase tracking-wider;
+  }
+
+  .booking-table tbody {
+    @apply bg-white dark:bg-neutral-800 divide-y divide-neutral-200 dark:divide-neutral-700;
+  }
+
+  .booking-table td {
+    @apply px-6 py-4 whitespace-nowrap;
+  }
+
+  .booking-table tr {
+    @apply transition-colors duration-150;
+  }
+
+  .booking-table tbody tr:hover {
+    @apply bg-neutral-50 dark:bg-neutral-700/50;
+  }
+
+  /* Loading states */
+  .loading-spinner {
+    @apply animate-spin rounded-full border-2 border-neutral-300 border-t-primary-600;
+  }
+
+  .loading-skeleton {
+    @apply animate-pulse bg-neutral-200 dark:bg-neutral-700 rounded;
+  }
+
+  /* Alert styles */
+  .alert {
+    @apply p-4 rounded-lg border transition-all duration-200;
+  }
+
+  .alert-success {
+    @apply alert bg-success-50 border-success-200 text-success-800 dark:bg-success-900/30 dark:border-success-800 dark:text-success-300;
+  }
+
+  .alert-warning {
+    @apply alert bg-warning-50 border-warning-200 text-warning-800 dark:bg-warning-900/30 dark:border-warning-800 dark:text-warning-300;
+  }
+
+  .alert-error {
+    @apply alert bg-danger-50 border-danger-200 text-danger-800 dark:bg-danger-900/30 dark:border-danger-800 dark:text-danger-300;
+  }
+
+  .alert-info {
+    @apply alert bg-primary-50 border-primary-200 text-primary-800 dark:bg-primary-900/30 dark:border-primary-800 dark:text-primary-300;
+  }
+
+  /* Modal styles */
+  .modal-overlay {
+    @apply fixed inset-0 bg-black/50 backdrop-blur-xs flex items-center justify-center p-4 z-50;
+  }
+
+  .modal-content {
+    @apply bg-white dark:bg-neutral-800 rounded-xl shadow-2xl max-w-lg w-full max-h-[90vh] overflow-y-auto animate-scale-in;
+  }
+
+  /* Search and filter styles */
+  .search-input {
+    @apply pl-10 pr-4 py-2 w-full border border-neutral-300 rounded-lg focus:ring-2 focus:ring-primary-500 focus:border-primary-500 dark:border-neutral-600 dark:bg-neutral-700 dark:text-white dark:placeholder-neutral-400;
+  }
+
+  .filter-chip {
+    @apply inline-flex items-center px-3 py-1 rounded-full text-sm bg-neutral-100 text-neutral-700 hover:bg-neutral-200 transition-colors dark:bg-neutral-700 dark:text-neutral-300 dark:hover:bg-neutral-600;
+  }
+
+  .filter-chip-active {
+    @apply filter-chip bg-primary-100 text-primary-800 hover:bg-primary-200 dark:bg-primary-900/30 dark:text-primary-300;
+  }
+
+  /* Hall specific styles */
+  .hall-card {
+    @apply booking-card hover:shadow-clean-glow border-l-4 border-l-accent-500;
+  }
+
+  .time-slot {
+    @apply inline-flex items-center justify-center px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 cursor-pointer;
+  }
+
+  .time-slot-available {
+    @apply time-slot bg-success-100 text-success-800 hover:bg-success-200 dark:bg-success-900/30 dark:text-success-300 dark:hover:bg-success-900/50;
+  }
+
+  .time-slot-booked {
+    @apply time-slot bg-danger-100 text-danger-800 cursor-not-allowed dark:bg-danger-900/30 dark:text-danger-300;
+  }
+
+  .time-slot-pending {
+    @apply time-slot bg-warning-100 text-warning-800 hover:bg-warning-200 dark:bg-warning-900/30 dark:text-warning-300 dark:hover:bg-warning-900/50;
+  }
+
+  .time-slot-selected {
+    @apply time-slot bg-primary-100 text-primary-800 ring-2 ring-primary-500 dark:bg-primary-900/30 dark:text-primary-300;
+  }
+
+  /* Calendar styles */
+  .calendar-grid {
+    @apply grid grid-cols-7 gap-1;
+  }
+
+  .calendar-day {
+    @apply aspect-square flex items-center justify-center rounded-lg text-sm font-medium transition-all duration-200 cursor-pointer;
+  }
+
+  .calendar-day-today {
+    @apply bg-primary-100 text-primary-900 font-bold dark:bg-primary-900/30 dark:text-primary-300;
+  }
+
+  .calendar-day-selected {
+    @apply bg-primary-600 text-white ring-2 ring-primary-500 ring-offset-2 dark;
+  }
+
+  .calendar-day-other-month {
+    @apply text-neutral-400 dark:text-neutral-600 cursor-default;
+  }
+
+  /* Booking summary styles */
+  .booking-summary {
+    @apply bg-gradient-to-r from-primary-50 to-accent-50 dark:from-neutral-800 dark:to-neutral-700 rounded-xl p-6 border border-primary-200 dark:border-neutral-600;
+  }
+
+  .booking-summary-title {
+    @apply text-lg font-semibold text-primary-900 dark:text-primary-100 mb-4;
+  }
+
+  .booking-summary-item {
+    @apply flex justify-between items-center py-2 border-b border-primary-100 dark:border-neutral-600 last:border-b-0;
+  }
+
+  .booking-summary-item-label {
+    @apply text-sm text-neutral-600 dark:text-neutral-400;
+  }
+
+  .booking-summary-item-value {
+    @apply text-sm font-medium text-neutral-900 dark:text-neutral-100;
+  }
+
+  /* Navigation styles */
+  .nav-link {
+    @apply px-3 py-2 rounded-lg text-sm font-medium transition-all duration-200 hover:bg-neutral-100 dark:hover:bg-neutral-700;
+  }
+
+  .nav-link-active {
+    @apply nav-link bg-primary-100 text-primary-700 dark:bg-primary-900/30 dark:text-primary-300;
+  }
+
+  /* Hero section for hall booking */
+  .hero-section {
+    @apply bg-gradient-to-br from-primary-600 to-accent-600 text-white;
+  }
+
+  .hero-title {
+    @apply text-4xl md:text-6xl font-bold mb-6 animate-fade-in;
+  }
+
+  .hero-subtitle {
+    @apply text-xl md:text-2xl text-primary-100 mb-8 animate-slide-up;
+  }
+
+  /* Feature cards */
+  .feature-card {
+    @apply bg-white dark:bg-neutral-800 rounded-xl p-6 shadow-booking-card hover:shadow-booking-card-hover transition-all duration-300 hover:-translate-y-1 border border-neutral-200 dark:border-neutral-700;
+  }
+
+  .feature-icon {
+    @apply w-12 h-12 bg-primary-100 dark:bg-primary-900/30 rounded-lg flex items-center justify-center text-primary-600 dark:text-primary-400 mb-4;
+  }
+
+  /* Stats cards */
+  .stats-card {
+    @apply bg-white dark:bg-neutral-800 rounded-xl p-6 shadow-booking-card border-l-4 border-l-primary-500;
+  }
+
+  .stats-number {
+    @apply text-3xl font-bold text-primary-600 dark:text-primary-400;
+  }
+
+  .stats-label {
+    @apply text-sm text-neutral-600 dark:text-neutral-400 mt-1;
+  }
+
+  /* Error boundaries */
+  .error-boundary {
+    @apply min-h-screen flex items-center justify-center bg-neutral-50 dark:bg-neutral-900 px-4;
+  }
+
+  .error-card {
+    @apply bg-white dark:bg-neutral-800 rounded-xl shadow-lg p-8 max-w-md w-full text-center;
+  }
+
+  .error-icon {
+    @apply w-16 h-16 bg-danger-100 dark:bg-danger-900/30 rounded-full flex items-center justify-center mx-auto mb-4;
+  }
+
+  /* Responsive utilities */
+  .container-booking {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+
+  /* Print styles */
+  @media print {
+    .no-print {
+      display: none !important;
+    }
+
+    .booking-card {
+      @apply shadow-none border border-neutral-300;
+    }
+
+    body {
+      @apply text-black bg-white;
+    }
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .text-pretty {
+    text-wrap: pretty;
+  }
+
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  .glass-effect {
+    @apply bg-white/80 backdrop-blur-md border border-white/20 dark:bg-neutral-900/80 dark:border-neutral-800/20;
+  }
+
+  .clean-gradient {
+    background: linear-gradient(135deg, #0ea5e9 0%, #d946ef 100%);
+  }
+
+  .booking-gradient {
+    background: linear-gradient(135deg, #22c55e 0%, #0ea5e9 100%);
+  }
+}
+
+/* Container */
+.container {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.btn-primary {
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+  border: 1px solid transparent;
+}
+
+.btn-primary:hover {
+  background-color: var(--primary);
+  opacity: 0.8;
+}
+
+/* Utility classes */
+.text-center {
+  text-align: center;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  @apply w-2 h-2;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-neutral-100 dark:bg-neutral-800;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-neutral-400 dark:bg-neutral-600 rounded-full hover:bg-neutral-500 dark:hover:bg-neutral-500;
+}
